@@ -4,6 +4,6 @@ import signUpController from "./controllers/signUpController.js";
 
 const routes = express();
 
-routes.use("/cadastro", signUpController());
+routes.use("/cadastro", signUpController);
 
 export default routes
