@@ -5,7 +5,7 @@ async function connect() {
     host: "localhost",
     port: 3306,
     password: "",
-    database: "bd_hortec2",
+    database: "db_tcc",
     user: "root",
   });
 }

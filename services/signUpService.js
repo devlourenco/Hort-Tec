@@ -34,7 +34,7 @@ async function deleteUser(idUser) {
   const sql = "UPDATE usuarios SET deletado = 1 WHERE id = ?";
 
   const conn = await database.connect();
-  await conn.query(sql, [idUser]);
+  await conn.query(sql, idUser);
   conn.end();
 }
 
