@@ -20,14 +20,21 @@ async function listUser() {
   return rows;
 }
 
-async function updateUser(id, email, senha, nome, tipoUsuario) {
+async function updateUser(id, email, senha, nome, tipo_usuario) {
   const sql =
-    "UPDATE usuarios SET email = ?, senha = ?, nome =? tipoUsuario= ? WHERE id = ?;";
+    "UPDATE usuarios SET email = ?, senha = ?, nome = ?, tipo_usuario = ? WHERE id = ?";
 
-  const dataUser = [email, senha, nome, tipoUsuario, id];
+  const dataUser = [email, senha, nome, tipo_usuario, id];
   const conn = await database.connect();
-  await conn.query(sql, dataUser);
-  conn.end();
+
+  try {
+    await conn.query(sql, dataUser);
+    console.log("Usuário Editado");
+  } catch (error) {
+    console.error("Erro ao atualizar o usuário:", error.message);
+  } finally {
+    conn.end();
+  }
 }
 
 async function deleteUser(idUser) {
