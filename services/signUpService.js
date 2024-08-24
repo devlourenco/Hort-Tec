@@ -45,4 +45,16 @@ async function deleteUser(idUser) {
   conn.end();
 }
 
-export default { createUser, listUser, updateUser, deleteUser };
+async function verificarEmail(email) {
+  const sql = `select * from usuarios where deletado = 0 and email = '${email}'`
+
+  const con = await database.connect()
+  const [users] = await con.query(sql)
+  con.end();
+
+  return users
+}
+
+export default { createUser, listUser, updateUser, deleteUser, verificarEmail };
+
+

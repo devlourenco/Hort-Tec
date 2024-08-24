@@ -17,9 +17,42 @@ routes.get("/", async (req, res) => {
 routes.post("/", async (req, res) => {
   const { email, senha, nome, tipoUsuario } = req.body;
 
+  if(!nome){
+    return res.status(400)
+    .send(
+      { message: "Informe nome completo"}
+    )
+  }
+
+  if(!tipoUsuario === "admin" || !tipoUsuario === "user"){
+    return res.status(400)
+    .send(
+      { message: "Informe um usuario válido"}
+    )
+  }
+
   if (senha.length < 6) {
     return res.status(400).send({ message: "Senha curta demais" });
   }
+
+  if(!email.includes('@')){
+    return res.status(400)
+    .send(
+      { message: "Informe um email válido"}
+    )
+  }
+
+  let verifyUser = await service.verificarEmail(email)
+
+  console.log(verifyUser)
+
+  if(verifyUser.length > 0){
+    return res.status(400)
+    .send(
+      { message: "E-mail já cadastrado"}
+    )
+  }
+
   try {
     console.log("Cadastro realizado");
   } catch (error) {
