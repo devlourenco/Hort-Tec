@@ -1,3 +1,4 @@
+import { WelcomeScreenNavigationProp } from "@/types/navigationTypes";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -8,13 +9,18 @@ import {
   View,
 } from "react-native";
 
-export default function Login() {
+type Props = {
+  navigation: WelcomeScreenNavigationProp;
+};
+
+export default function Login({navigation}: Props) {
+  
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS == "ios" ? "padding" : "height"}
       className={Platform.OS == "ios" ? 
         "pt-20 flex-1 items-center" : 
-        "flex-1 items-center pt-10"
+        "pt-10 flex-1 items-center"
       }
     >
       <ScrollView 
@@ -26,16 +32,16 @@ export default function Login() {
         </View>
 
         <View className="flex-1 gap-6 w-screen px-7">
-          <View className="flex-1">
-            <Text className="text-base text-green-800">E-mail</Text>
-            <TextInput className="border-b py-4"/>
+          <View className="flex-1 gap-1">
+            <Text className="text-lg text-green-900">E-mail:</Text>
+            <TextInput className="border-b py-2 px-1 border-green-900 text-green-800"/>
           </View>
-          <View className="flex-1">
-            <Text className="text-base text-green-800">Senha</Text>
-            <TextInput className="border-b py-4"/>
+          <View className="flex-1 gap-1">
+            <Text className="text-lg text-green-900">Senha:</Text>
+            <TextInput className="border-b py-2 px-1 border-green-900 text-green-800"/>
           </View>
 
-          <TouchableOpacity className="mt-10 p-4 bg-green-300 rounded-lg">
+          <TouchableOpacity className="mt-14 p-4 bg-green-300 rounded-lg">
             <Text 
               className="text-lg font-semibold text-white text-center"
             >
@@ -45,8 +51,10 @@ export default function Login() {
         </View>
 
         <View className="flex-1 gap-1 items-center mt-10">
-          <Text className="text-green-800 underline">Esqueceu a senha?</Text>
-          <Text className="text-green-800 underline">Não possui conta? Crie uma agora</Text>
+          <Text className="text-green-800 underline text-base">Esqueceu a senha?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
+            <Text className="text-green-800 underline text-base">Não possui conta? Crie uma agora</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
