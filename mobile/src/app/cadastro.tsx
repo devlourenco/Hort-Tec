@@ -1,5 +1,9 @@
+import api from "@/config/api";
 import { WelcomeScreenNavigationProp } from "@/types/navigationTypes";
+import { AxiosError, AxiosResponse } from "axios";
+import { useEffect, useState } from "react";
 import {
+  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -13,23 +17,47 @@ type Props = {
   navigation: WelcomeScreenNavigationProp;
 };
 
-export default function Cadastro({navigation}: Props) {
+export default function Cadastro({ navigation }: Props) {
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [confirmaSenha, setCofirmaSenha] = useState("");
+
+  function handleRegister() {
+    
+    api.post('/usuario', {
+      nome,
+      email,
+      senha
+    })
+    .then((response: AxiosResponse) => {
+      Alert.alert("Cadastro realizado com sucesso!");
+      navigation.navigate('Login')
+    })
+    .catch((error: AxiosError) => {
+      Alert.alert(error.response?.data.message);
+    });
+    
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS == "ios" ? "padding" : "height"}
-      className={Platform.OS == "ios" ? 
-        "pt-20 flex-1 items-center" : 
-        "flex-1 items-center pt-10"
+      className={
+        Platform.OS == "ios"
+          ? "pt-20 flex-1 items-center"
+          : "flex-1 items-center pt-10"
       }
     >
-      <ScrollView 
-        keyboardShouldPersistTaps="handled"
-      >
+      <ScrollView keyboardShouldPersistTaps="handled">
         <View className="flex-1 items-center gap-1 mb-20">
-          <Text className="text-3xl font-semibold text-green-900">Já nos conhecemos?</Text>
-          <Text className="text-base text-green-900">Se sim,&ensp;
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-             <Text className="underline text-green-900">clique aqui!</Text>
+          <Text className="text-3xl font-semibold text-green-900">
+            Já nos conhecemos?
+          </Text>
+          <Text className="text-base text-green-900">
+            Se sim,&ensp;
+            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+              <Text className="underline text-green-900">clique aqui!</Text>
             </TouchableOpacity>
           </Text>
         </View>
@@ -37,27 +65,44 @@ export default function Cadastro({navigation}: Props) {
         <View className="flex-1 gap-6 w-screen px-7">
           <View className="flex-1 gap-1">
             <Text className="text-base text-green-900">Nome Completo:</Text>
-            <TextInput className="border-b py-2 text-green-800"/>
+            <TextInput
+              className="border-b py-2 text-green-800"
+              onChangeText={setNome}
+              value={nome}
+            />
           </View>
           <View className="flex-1 gap-1">
-            <Text className="text-base text-green-900">E-mail</Text>
-            <TextInput className="border-b py-2 text-green-800 "/>
+            <Text className="text-base text-green-900">E-mail:</Text>
+            <TextInput
+              className="border-b py-2 text-green-800"
+              onChangeText={setEmail}
+              value={email}
+            />
           </View>
           <View className="flex-1 gap-1">
-            <Text className="text-base text-green-900">Senha</Text>
-            <TextInput className="border-b py-2 text-green-800"/>
+            <Text className="text-base text-green-900">Senha:</Text>
+            <TextInput
+              className="border-b py-2 text-green-800"
+              onChangeText={setSenha}
+              value={senha}
+            />
           </View>
           <View className="flex-1 gap-1">
-            <Text className="text-base text-green-900">Confirmar senha</Text>
-            <TextInput className="border-b py-2 text-green-800"/>
+            <Text className="text-base text-green-900">Confirmar senha:</Text>
+            <TextInput
+              className="border-b py-2 text-green-800"
+              onChangeText={setCofirmaSenha}
+              value={confirmaSenha}
+            />
           </View>
 
-          <TouchableOpacity 
+          <TouchableOpacity
             className="mt-10 p-4 bg-green-300 rounded-lg"
+            onPress={() => {
+              handleRegister();
+            }}
           >
-            <Text 
-              className="text-lg font-semibold text-white text-center"
-            >
+            <Text className="text-lg font-semibold text-white text-center">
               Cadastrar
             </Text>
           </TouchableOpacity>
