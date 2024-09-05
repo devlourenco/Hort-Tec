@@ -24,6 +24,10 @@ export default function Cadastro({ navigation }: Props) {
   const [confirmaSenha, setCofirmaSenha] = useState("");
 
   function handleRegister() {
+
+    if(senha !== confirmaSenha){
+      return Alert.alert("Senhas não conferem")
+    }
     
     api.post('/usuario', {
       nome,
