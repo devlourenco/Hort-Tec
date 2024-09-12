@@ -4,8 +4,10 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // Define suas rotas aqui
 export type RootStackParamList = {
   Welcome: undefined;
-  Login: undefined; // Pode adicionar parâmetros aqui se necessário
+  Login: undefined; 
   Cadastro: undefined; 
+  Home: undefined;
+  App: undefined;
 };
 
 // Define o tipo de navegação para a tela Welcome

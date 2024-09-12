@@ -1,7 +1,8 @@
 import api from "@/config/api";
+import { storageTokenGet, storageTokenSave } from "@/storange/storageUser";
 import { WelcomeScreenNavigationProp } from "@/types/navigationTypes";
 import { AxiosError } from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Alert,
   KeyboardAvoidingView,
@@ -18,18 +19,30 @@ type Props = {
 };
 
 export default function Login({navigation}: Props) {
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [mail, setMail] = useState("");
+  const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    const token = async () => {
+      console.log(await storageTokenGet())
+    }
+    token()
+  },[])
 
   async function handleLogin(){
     await api.post('/login', {
-      email,
-      senha
+      mail,
+      password
     })
     .then((response) => {
       Alert.alert("Login realizado com sucesso!");
-      setEmail("")
-      setSenha("")
+      const token = response.data.message
+      storageTokenSave(token)
+      
+      setMail("")
+      setPassword("")
+
+      navigation.navigate('App')
     })
     .catch((error: AxiosError) => {
       Alert.alert(error.response?.data.message);
@@ -57,16 +70,16 @@ export default function Login({navigation}: Props) {
             <Text className="text-lg text-green-900">E-mail:</Text>
             <TextInput 
               className="border-b py-2 px-1 border-green-900 text-green-800"
-              onChangeText={setEmail}
-              value={email}
+              onChangeText={setMail}
+              value={mail}
             />
           </View>
           <View className="flex-1 gap-1">
             <Text className="text-lg text-green-900">Senha:</Text>
             <TextInput 
               className="border-b py-2 px-1 border-green-900 text-green-800"
-              onChangeText={setSenha}
-              value={senha}
+              onChangeText={setPassword}
+              value={password}
             />
           </View>
 
