@@ -8,6 +8,8 @@ export type RootStackParamList = {
   Cadastro: undefined; 
   Home: undefined;
   App: undefined;
+  ListPlants: undefined;
+  NewPlant: undefined;
 };
 
 // Define o tipo de navegação para a tela Welcome

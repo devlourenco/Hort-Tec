@@ -1,6 +1,6 @@
 type UserDto = {
   id: number,
-  name: string,
+  nome: string,
   mail: string,
   password: string
 }
