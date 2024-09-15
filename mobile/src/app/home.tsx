@@ -8,6 +8,11 @@ import { ptBR } from 'date-fns/locale';
 import Fontisto from '@expo/vector-icons/Fontisto';
 import { colors } from "@/styles/colors";
 import LoadingScreen from "@/components/loading-screen";
+import { 
+  getCurrentPositionAsync,
+  requestForegroundPermissionsAsync,  
+} from 'expo-location'
+import apiWeather, { currentProps } from "@/config/weatherApi";
 
 type Props = {
   navigation: WelcomeScreenNavigationProp;
@@ -16,9 +21,24 @@ type Props = {
 export default function Home({navigation}: Props){
   const [tokenData, setTokenData] = useState<UserDto | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [weather, setWeather] = useState<currentProps | null>(null);
 
   const dataAtual = new Date();
   const dataFormatada = format(dataAtual, "eeee, dd 'de' MMMM 'de' yyyy", { locale: ptBR });
+
+  function kelvinParaCelsius(kelvin: number): number {
+    return Math.round(kelvin - 273.15);
+  }
+
+  async function requestLocationPermissions(){
+    const { granted } = await requestForegroundPermissionsAsync()
+
+    if(granted){
+      const currentPosition = await getCurrentPositionAsync()
+      const data = await apiWeather(currentPosition.coords.latitude, currentPosition.coords.longitude)
+      setWeather(data)
+    }
+  }
 
   const user = async () => {
     const token = await storageTokenGet();
@@ -33,6 +53,8 @@ export default function Home({navigation}: Props){
 
   useEffect(() => {
     user()
+    requestLocationPermissions()
+    console.log(weather)
   },[])
 
   async function handleLogout(){
@@ -40,7 +62,7 @@ export default function Home({navigation}: Props){
     navigation.navigate("Login")
   }
 
-  if (tokenData === null) {
+  if(weather === null){
     return <LoadingScreen />;
   }
 
@@ -66,12 +88,13 @@ export default function Home({navigation}: Props){
       <TouchableOpacity className="h-24 bg-white mt-5 px-4 py-6 rounded-lg flex-1 flex-row justify-between items-center">
         <View>
           <Text className="text-green-900 text-2xl font-bold">Clima</Text>
-          <Text className="text-green-800 text-xs">Taboão da Serra - São Paulo</Text>
+          <Text className="text-green-800 text-xs">{weather.locationName}</Text>
         </View>
-        <Text className="text-green-900 text-2xl font-bold">21ºC</Text>
+        <Text className="text-green-900 text-2xl font-bold">{
+          kelvinParaCelsius(weather.currentTemperature)
+        }ºC</Text>
       </TouchableOpacity>
-
-      <TouchableOpacity onPress={handleLogout}>
+      <TouchableOpacity className="p-4" onPress={handleLogout}>
         <Text>Sair</Text>
       </TouchableOpacity>
 
