@@ -5,9 +5,10 @@ import TabRoutes from "./tabs.routes";
 import Cadastro from "@/app/cadastro";
 import Login from "@/app/login";
 import Welcome from "@/app/welcome";
+import WeatherPage from "@/app/weather-page";
+import LoadingScreen from "@/components/loading-screen";
 
 import { storageTokenGet } from "@/storange/storageUser";
-import LoadingScreen from "@/components/loading-screen";
 
 const Stack = createNativeStackNavigator();
 
@@ -42,6 +43,7 @@ export default function StackRoutes() {
       <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Cadastro" component={Cadastro} />
+      <Stack.Screen name="WeatherPage" component={WeatherPage} />
     </Stack.Navigator>
   );
 }

@@ -54,12 +54,15 @@ export default function Home({navigation}: Props){
   useEffect(() => {
     user()
     requestLocationPermissions()
-    console.log(weather)
   },[])
 
   async function handleLogout(){
     storageTokenRemove()
     navigation.navigate("Login")
+  }
+
+  function handleWeather(){
+    navigation.navigate("WeatherPage")
   }
 
   if(weather === null){
@@ -77,7 +80,9 @@ export default function Home({navigation}: Props){
         <Image source={require("@/assets/avatar.png")} className="w-20 h-20 rounded-full" />
       </View>
 
-      <TouchableOpacity className="h-24 bg-white mt-5 px-4 py-6 rounded-lg flex-1 flex-row justify-between items-center">
+      <TouchableOpacity 
+        className="h-24 bg-white mt-5 px-4 py-6 rounded-lg flex-1 flex-row justify-between items-center"
+      >
         <View>
           <Text className="text-green-900 text-2xl font-bold">Notificações</Text>
           <Text className="text-green-800 text-xs">Ultimas Atualizações</Text>
@@ -85,7 +90,7 @@ export default function Home({navigation}: Props){
         <Fontisto name="email" size={24} color={colors.green[900]}/>
       </TouchableOpacity>
 
-      <TouchableOpacity className="h-24 bg-white mt-5 px-4 py-6 rounded-lg flex-1 flex-row justify-between items-center">
+      <TouchableOpacity className="h-24 bg-white mt-5 px-4 py-6 rounded-lg flex-1 flex-row justify-between items-center" onPress={handleWeather}>
         <View>
           <Text className="text-green-900 text-2xl font-bold">Clima</Text>
           <Text className="text-green-800 text-xs">{weather.locationName}</Text>
