@@ -7,6 +7,7 @@ import Login from "@/app/login";
 import Welcome from "@/app/welcome";
 import WeatherPage from "@/app/weather-page";
 import LoadingScreen from "@/components/loading-screen";
+import PagePlant from "@/app/page-plant";
 
 import { storageTokenGet } from "@/storange/storageUser";
 
@@ -44,6 +45,7 @@ export default function StackRoutes() {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Cadastro" component={Cadastro} />
       <Stack.Screen name="WeatherPage" component={WeatherPage} />
+      <Stack.Screen name="PagePlant" component={PagePlant} />
     </Stack.Navigator>
   );
 }

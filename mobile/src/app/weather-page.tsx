@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import MainCard from "@/components/main-card";
 import InfoCard from "@/components/info-card";
 import apiWeather, { currentProps } from "@/config/weatherApi";
 import { WelcomeScreenNavigationProp } from "@/types/navigationTypes";
@@ -71,7 +70,7 @@ export default function WeatherPage({ navigation }: Props) {
         <Text className="p-4 text-xl font-bold text-green-900">
           Informações adicionais:
         </Text>
-        <View className="flex-1 flex-row flex-wrap">
+        <View className="flex flex-row">
           <InfoCard 
             title={"Vento"} 
             variable={`${weather.wind.toString()}m/h`}

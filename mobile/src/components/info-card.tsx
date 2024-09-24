@@ -46,10 +46,10 @@ export default function InfoCard(props: Prosp){
   return(
     <View className="flex-1 items-center m-3">
       <Icon/>
-      <Text className="text-green-900 m-5 ml-15 text-base">
+      <Text className="text-green-900 text-base text-center">
         {props.title}
       </Text>
-      <Text className="text-green-900 m-5 ml-15">
+      <Text className="text-green-900 text-center">
         {props.variable}
       </Text>
     </View>
