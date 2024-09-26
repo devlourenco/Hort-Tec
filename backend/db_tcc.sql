@@ -6,24 +6,25 @@ create table usuarios (
   nome varchar (50),
   email varchar (100) unique,
   senha varchar (50),
-  tipo_usuario varchar (10),
   deletado boolean default false
 );
 
 create table usuario_arduino(
   id int auto_increment primary key,
-  usuario_id int not null unique,
-  arduino_id int not null unique,
+  usuario_id int not null,
+  arduino_id int not null,
   nome varchar (50),
-  umidade_ideal decimal (3,2),
-  temperatura_ideal decimal (3,2), 
-)
+  umidade_ideal decimal,
+  temperatura_ideal decimal,
+  
+  foreign key (arduino_id) references arduinos(id),
+  foreign key (usuario_id) references usuarios(id) 
+);
 
 create table arduinos (
   id int auto_increment primary key,
   nome_arduino varchar(50)
 );
-
 
 create table leituras (
   id int auto_increment primary key,
@@ -34,7 +35,6 @@ create table leituras (
 
   foreign key (arduino_id) references arduinos(id)
 );    
-
 
 create table plantas (
   id int auto_increment primary key,

@@ -15,19 +15,12 @@ routes.get("/", async (req, res) => {
 });
 
 routes.post("/", async (req, res) => {
-  const { email, senha, nome, tipoUsuario } = req.body;
+  const { email, senha, nome } = req.body;
 
   if(!nome){
     return res.status(400)
     .send(
       { message: "Informe nome completo"}
-    )
-  }
-
-  if(!tipoUsuario === "admin" || !tipoUsuario === "user"){
-    return res.status(400)
-    .send(
-      { message: "Informe um usuario válido"}
     )
   }
 
@@ -59,22 +52,22 @@ routes.post("/", async (req, res) => {
     console.log(error);
   }
 
-  await service.createUser(email, senha, nome, tipoUsuario);
+  await service.createUser(email, senha, nome);
 
   return res.status(200).send({ message: "cadastro realizado!" });
 });
 
 routes.put("/", async (req, res) => {
-  const { nome, email, senha, tipo_usuario, id } = req.body;
+  const { nome, email, senha, id } = req.body;
 
-  if (!nome || !email || !senha || !tipo_usuario || !id) {
+  if (!nome || !email || !senha || !id) {
     return res
       .status(400)
       .send({ message: "Todos os campos são obrigatórios" });
   }
 
   try {
-    await service.updateUser(id, email, senha, nome, tipo_usuario);
+    await service.updateUser(id, email, senha, nome);
     return res.status(200).send({ message: "Usuário editado com sucesso" });
   } catch (error) {
     console.error("Erro ao editar usuário:", error);

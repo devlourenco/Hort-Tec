@@ -1,10 +1,10 @@
 import database from "../repository/mysql.js";
 
-async function createUser(email, senha, nome, tipoUsuario) {
+async function createUser(email, senha, nome) {
   const sql =
-    "INSERT INTO usuarios(email, senha, nome, tipo_usuario) VALUES(?,?,?,?)";
+    "INSERT INTO usuarios(email, senha, nome) VALUES(?,?,?)";
 
-  const dataUser = [email, senha, nome, tipoUsuario];
+  const dataUser = [email, senha, nome];
 
   const conn = await database.connect();
   await conn.query(sql, dataUser);
@@ -20,9 +20,9 @@ async function listUser() {
   return rows;
 }
 
-async function updateUser(id, email, senha, nome, tipo_usuario) {
+async function updateUser(id, email, senha, nome) {
   const sql =
-    "UPDATE usuarios SET email = ?, senha = ?, nome = ?, tipo_usuario = ? WHERE id = ?";
+    "UPDATE usuarios SET email = ?, senha = ?, nome = ? WHERE id = ?";
 
   const dataUser = [email, senha, nome, tipo_usuario, id];
   const conn = await database.connect();
