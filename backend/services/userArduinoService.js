@@ -16,4 +16,14 @@ async function createUserArduino(id_usuario, id_arduino, planta_nome, umidade_id
     conn.end();
 }
 
-export default { createUserArduino };
+async function listUserArduino(id){
+  const sql = `select ua.id, ua.nome, ua.umidade_ideal, ua.temperatura_ideal from usuario_arduino as ua inner join usuarios as u on ua.usuario_id = u.id where u.id = ${id}`
+
+  const conn = await database.connect();
+  const [rows] = await conn.query(sql);
+  conn.end();
+
+  return rows;
+}
+
+export default { createUserArduino, listUserArduino };

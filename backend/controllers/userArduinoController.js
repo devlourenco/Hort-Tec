@@ -6,7 +6,29 @@ import userArduinoService from "../services/userArduinoService.js";
 const routes = express.Router();
 
 routes.get("/", async (req, res) => {
-  res.status(200).send({ message: "Teste" });
+  const {mail} = req.body
+  const verifyUser = await signUpService.verificarEmail(mail);
+
+  if (verifyUser.length < 1) {
+    return res.status(401).send({ message: "Login Inválido" });
+  }
+
+  const {id} = verifyUser[0]
+
+  try {
+    const userArduinoSave = await userArduinoService.listUserArduino(id)
+
+    if (userArduinoSave.length < 1) {
+      return res.status(401).end();
+    }
+
+    res.status(200).send({ message: userArduinoSave });
+
+  } catch (error) {
+    console.error("Erro ao cadastrar automação: ", error);
+    return res.status(400).send({ message: "Erro ao cadastrar automação" });
+  }
+  
 });
 
 routes.post("/", async (req, res) => {
@@ -25,7 +47,7 @@ routes.post("/", async (req, res) => {
     !umidade_ideal ||
     !temperatura_ideal
   ) {
-    return res.status(400).send({ message: "Complete o cadastro" });
+    return res.status(200).send({ message: "Complete o cadastro" });
   }
 
   try {
