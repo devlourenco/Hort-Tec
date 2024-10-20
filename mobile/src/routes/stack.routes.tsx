@@ -25,6 +25,8 @@ export default function StackRoutes() {
         } else {
           setIsAuthenticated(false);
         }
+        console.log(token);
+        console.log(isAuthenticated)
       } catch (error) {
         console.error("Erro ao verificar o token:", error);
         setIsAuthenticated(false);
@@ -40,12 +42,12 @@ export default function StackRoutes() {
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {isAuthenticated && <Stack.Screen name="App" component={TabRoutes} />}
       <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Cadastro" component={Cadastro} />
+      <Stack.Screen name="App" component={TabRoutes} />
       <Stack.Screen name="WeatherPage" component={WeatherPage} />
-      <Stack.Screen name="PagePlant" component={PagePlant} />
+      <Stack.Screen name="PagePlant" component={PagePlant}/>
     </Stack.Navigator>
   );
 }

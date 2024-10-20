@@ -1,6 +1,53 @@
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import api from "@/config/api";
+import { useRoute } from "@react-navigation/native";
+import { useCallback, useEffect, useState } from "react";
+import {
+  Alert,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { AxiosError } from "axios";
+import { useFocusEffect } from "expo-router";
+
+type AutoPropsById = {
+  id: number;
+  usuario_id: number;
+  arduino_id: number;
+  nome: string;
+  umidade_ideal: string;
+  temperatura_ideal: string;
+};
 
 export default function PagePlant() {
+  const [autoByArduino, setAutoByArduino] = useState<AutoPropsById[]>([]);
+
+  const route = useRoute();
+  const { itemId } = route.params;
+
+  console.log(itemId);
+
+  async function handlerArduinoById() {
+    await api
+      .get(`/usuario-arduino/id/${itemId}`)
+      .then((response) => {
+        setAutoByArduino(response.data.message[0]);
+        console.log(response.data.message[0]);
+      })
+      .catch((error: AxiosError) => {
+        const message = error.response?.data.message || "Erro desconhecido";
+        Alert.alert(message);
+      });
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      handlerArduinoById();
+    }, [])
+  );
+
   return (
     <ScrollView>
       <Image
@@ -10,17 +57,35 @@ export default function PagePlant() {
       <View className="">
         <View className="mt-6">
           <Text className="text-center text-3xl text-green-800 font-bold">
-            Alface
+            {autoByArduino.nome}
           </Text>
+          <TouchableOpacity className=" bg-white mt-5 px-4 py-6 rounded-lg flex-1 justify-between gap-2">
+            <View className="flex-1 flex-row items-center justify-between">
+              <Text className="text-green-900 text-xl font-semibold">
+                Identificador Arduino
+              </Text>
+              <Text className="text-green-800 text-xl">
+                {autoByArduino.arduino_id}
+              </Text>
+            </View>
+            <View className="flex-1 flex-row items-center justify-between">
+              <Text className="text-green-900 text-xl font-semibold">
+                Temperatura Ideal
+              </Text>
+              <Text className="text-green-800 text-xl">
+                {autoByArduino.temperatura_ideal}
+              </Text>
+            </View>
+            <View className="flex-1 flex-row items-center justify-between">
+              <Text className="text-green-900 text-xl font-semibold">
+                Umidade Ideal
+              </Text>
+              <Text className="text-green-800 text-xl">
+                {autoByArduino.umidade_ideal}
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
-        <View className="h-24 bg-white mt-5 px-4 flex-1 justify-between items-center flex-row">
-          <Text className="text-green-900 text-2xl font-semibold">Umidade do solo</Text>
-          <Text className="text-green-900 text-xl">70%</Text>
-        </View>
-        <TouchableOpacity className="h-24 bg-white mt-5 px-4 flex-1 justify-center">
-          <Text className="text-green-900 text-2xl font-semibold">Histórico</Text>
-          <Text className="text-green-800 text-xs">Ultima irrigação: 20/09/2024</Text>
-        </TouchableOpacity>
       </View>
     </ScrollView>
   );
