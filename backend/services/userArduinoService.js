@@ -26,4 +26,24 @@ async function listUserArduino(id){
   return rows;
 }
 
-export default { createUserArduino, listUserArduino };
+async function findAutomacaoById(id){
+  const sql = `select * from usuario_arduino where id = ${id}`
+
+  const conn = await database.connect();
+  const [rows] = await conn.query(sql);
+  conn.end();
+
+  return rows;
+}
+
+async function verifyUserArduino(id){
+  const sql = `select ua.id, ua.nome, ua.umidade_ideal, ua.temperatura_ideal from usuario_arduino as ua inner join usuarios as u on ua.usuario_id = u.id where ua.arduino_id = ${id}`
+
+  const conn = await database.connect();
+  const [rows] = await conn.query(sql);
+  conn.end();
+
+  return rows;
+}
+
+export default { createUserArduino, listUserArduino, verifyUserArduino, findAutomacaoById };

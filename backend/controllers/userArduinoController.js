@@ -5,10 +5,12 @@ import userArduinoService from "../services/userArduinoService.js";
 
 const routes = express.Router();
 
-routes.get("/", async (req, res) => {
-  const {mail} = req.body
+routes.get("/:mail", async (req, res) => {
+  const {mail} = req.params
   const verifyUser = await signUpService.verificarEmail(mail);
-
+  console.log(mail)
+  console.log(req.body)
+  console.log(req)
   if (verifyUser.length < 1) {
     return res.status(401).send({ message: "Login Inválido" });
   }
@@ -19,17 +21,35 @@ routes.get("/", async (req, res) => {
     const userArduinoSave = await userArduinoService.listUserArduino(id)
 
     if (userArduinoSave.length < 1) {
-      return res.status(401).end();
+      return res.status(401).send({ message: "Sem Arduinos registrados" });;
     }
 
     res.status(200).send({ message: userArduinoSave });
 
   } catch (error) {
-    console.error("Erro ao cadastrar automação: ", error);
-    return res.status(400).send({ message: "Erro ao cadastrar automação" });
+    console.error("Erro na busca automação: ", error);
+    return res.status(400).send({ message: "Erro na busca automação" });
   }
   
 });
+
+routes.get('/id/:id', async (req, res) => {
+  const { id } = req.params
+
+  try {
+    const userArduinoSave = await userArduinoService.findAutomacaoById(id)
+
+    if (userArduinoSave.length < 1) {
+      return res.status(401).send({ message: "Automação não encontrada" });;
+    }
+
+    res.status(200).send({ message: userArduinoSave });
+
+  } catch (error) {
+    console.error("Erro na busca automação: ", error);
+    return res.status(400).send({ message: "Erro na busca automação" });
+  }
+})
 
 routes.post("/", async (req, res) => {
   const { 
@@ -61,8 +81,15 @@ routes.post("/", async (req, res) => {
 
     // Verifica se o Arduino existe
     const verifyArduino = await arduinoService.verificarArduino(id_arduino);
+
     if (verifyArduino.length < 1) {
       return res.status(401).send({ message: "Arduino Inválido" });
+    }
+
+    const verifyUserArduino = await userArduinoService.verifyUserArduino(id_arduino)
+
+    if (verifyUserArduino.length > 0) {
+      return res.status(401).send({ message: "Arduino já cadastrado na plataforma" });
     }
 
     await userArduinoService.createUserArduino(

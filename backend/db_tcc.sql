@@ -26,6 +26,14 @@ create table arduinos (
   nome_arduino varchar(50)
 );
 
+INSERT INTO arduinos (nome_arduino) VALUES 
+('teste01'), 
+('teste02'), 
+('teste03'), 
+('teste04'), 
+('teste05'), 
+('teste06')
+
 create table leituras (
   id int auto_increment primary key,
   arduino_id int,
