@@ -10,6 +10,7 @@ import LoadingScreen from "@/components/loading-screen";
 import PagePlant from "@/app/page-plant";
 
 import { storageTokenGet } from "@/storange/storageUser";
+import UpdatePlant from "@/app/update-plant";
 
 const Stack = createNativeStackNavigator();
 
@@ -48,6 +49,7 @@ export default function StackRoutes() {
       <Stack.Screen name="App" component={TabRoutes} />
       <Stack.Screen name="WeatherPage" component={WeatherPage} />
       <Stack.Screen name="PagePlant" component={PagePlant}/>
+      <Stack.Screen name="UpdatePlant" component={UpdatePlant}/>
     </Stack.Navigator>
   );
 }

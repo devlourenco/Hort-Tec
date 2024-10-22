@@ -51,6 +51,26 @@ routes.get('/id/:id', async (req, res) => {
   }
 })
 
+routes.put('/', async (req, res) => {
+  const { id, nome, umidade_ideal, temperatura_ideal } = req.body
+
+  const userArduino = await userArduinoService.findAutomacaoById(id)
+
+  if(userArduino.length < 1){
+    return res.status(401).send({ message: "Automação não cadastrada" });;
+  }
+
+  try {
+    await userArduinoService.updateUserArduino(id, nome, umidade_ideal, temperatura_ideal)
+
+    res.status(200).send({ message: "Automação atualizada" });
+
+  } catch (error) {
+    console.error("Erro na atualização automação: ", error);
+    return res.status(400).send({ message: "Erro na atualização automação" });
+  }
+})
+
 routes.post("/", async (req, res) => {
   const { 
     id_arduino, 

@@ -46,4 +46,14 @@ async function verifyUserArduino(id){
   return rows;
 }
 
-export default { createUserArduino, listUserArduino, verifyUserArduino, findAutomacaoById };
+async function updateUserArduino(id, nome, umidade_ideal, temperatura_ideal){
+  const sql = "update usuario_arduino set nome=?, umidade_ideal=?, temperatura_ideal=? where id=?;"
+
+  const data = [nome, umidade_ideal, temperatura_ideal, id]
+
+  const conn = await database.connect();
+  await conn.query(sql, data);
+  conn.end();
+}
+
+export default { createUserArduino, listUserArduino, verifyUserArduino, findAutomacaoById, updateUserArduino };

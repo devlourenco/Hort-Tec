@@ -1,5 +1,5 @@
 import { storageTokenGet } from "@/storange/storageUser";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { AxiosError, AxiosResponse } from "axios";
 import {
@@ -14,47 +14,60 @@ import {
 } from "react-native";
 import { useEffect } from "react";
 import api from "@/config/api";
+import { WelcomeScreenNavigationProp } from "@/types/navigationTypes";
+import { useRoute } from "@react-navigation/native";
+import { useFocusEffect } from "expo-router";
 
-export default function NewPlant() {
+type Props = {
+  navigation: WelcomeScreenNavigationProp;
+};
+
+export default function UpdatePlant({navigation}: Props) {
   const [error, setError] = useState<string | null>(null);
   const [arduinoId, setArduinoId] = useState("");
   const [plantaNome, setPlantaNome] = useState("");
   const [umidadeIdeal, setUmidadeIdeal] = useState("");
   const [temperaturaIdeal, setTemperaturaIdeal] = useState("");
-  const [tokenDataEmail, setTokenDataEmail] = useState<string | null>(null);
+  const route = useRoute();
+  const { itemId } = route.params;
 
-  const user = async () => {
-    const token = await storageTokenGet();
+  async function handlerUserArduinoById() {
+    await api
+      .get(`/usuario-arduino/id/${itemId}`)
+      .then((response) => {
+        console.log(response.data.message[0]);
+        setArduinoId(response.data.message[0].id.toString())
+        setPlantaNome(response.data.message[0].nome);
+        setUmidadeIdeal(response.data.message[0].umidade_ideal);
+        setTemperaturaIdeal(response.data.message[0].temperatura_ideal);
+      })
+      .catch((error: AxiosError) => {
+        const message = error.response?.data.message || "Erro desconhecido";
+        Alert.alert(message);
+      });
+  }
 
-    if (token) {
-      const decoded: UserDto = jwtDecode(token);
-      setTokenDataEmail(decoded.email);
-      console.log(decoded.email);
-    } else {
-      setError("Token não encontrado");
-    }
-  };
-
-  useEffect(() => {
-    user();
-  }, []);
-
-  const handleSubmit = () => {
-
-    api.post('/usuario-arduino', {
-      id_arduino: arduinoId, 
-      email: tokenDataEmail, 
-      planta_nome: plantaNome, 
-      umidade_ideal: parseFloat(umidadeIdeal), 
+  const handleUpdate = () => {
+    api.put('/usuario-arduino', {
+      id: parseInt(arduinoId),
+      nome: plantaNome,
+      umidade_ideal: parseFloat(umidadeIdeal),
       temperatura_ideal: parseFloat(temperaturaIdeal)
     })
     .then((response: AxiosResponse) => {
-      Alert.alert(response.data.message);
+      Alert.alert(response.data.message)
+      navigation.goBack()
     })
     .catch((error: AxiosError) => {
-      Alert.alert(error.response?.data.message);
-    });
-  };
+      Alert.alert(error.response?.data.message)
+    })
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      handlerUserArduinoById();
+    }, [])
+  );
 
 
   return (
@@ -62,14 +75,19 @@ export default function NewPlant() {
       behavior={Platform.OS == "ios" ? "padding" : "height"}
       className={
         Platform.OS == "ios"
-          ? "pt-20 flex-1 items-center"
+          ? "flex-1 items-center"
           : "flex-1 items-center pt-10"
       }
     >
       <ScrollView keyboardShouldPersistTaps="handled">
+        <View className="flex flex-row justify-between p-4">
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Text className="text-green-800 text-lg">Voltar</Text>
+          </TouchableOpacity>
+        </View>
         <View className="flex-1 items-center gap-1 mb-10">
           <Text className="text-3xl font-semibold text-green-900">
-            Nova Planta
+            Atualizações
           </Text>
         </View>
 
@@ -82,6 +100,7 @@ export default function NewPlant() {
               className="border-b py-2 text-green-800"
               value={arduinoId}
               onChangeText={setArduinoId}
+              readOnly
             />
           </View>
           <View className="flex-1 gap-1">
@@ -109,12 +128,9 @@ export default function NewPlant() {
             />
           </View>
 
-          <TouchableOpacity
-            className="mt-10 p-4 bg-green-300 rounded-lg"
-            onPress={handleSubmit}
-          >
+          <TouchableOpacity className="mt-10 p-4 bg-green-300 rounded-lg" onPress={handleUpdate}>
             <Text className="text-lg font-semibold text-white text-center">
-              Cadastrar
+              Atualizar
             </Text>
           </TouchableOpacity>
         </View>

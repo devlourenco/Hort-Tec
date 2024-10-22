@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { AxiosError } from "axios";
 import { useFocusEffect } from "expo-router";
+import { WelcomeScreenNavigationProp } from "@/types/navigationTypes";
 
 type AutoPropsById = {
   id: number;
@@ -21,7 +22,11 @@ type AutoPropsById = {
   temperatura_ideal: string;
 };
 
-export default function PagePlant() {
+type Props = {
+  navigation: WelcomeScreenNavigationProp;
+};
+
+export default function PagePlant({ navigation }: Props) {
   const [autoByArduino, setAutoByArduino] = useState<AutoPropsById[]>([]);
 
   const route = useRoute();
@@ -48,8 +53,23 @@ export default function PagePlant() {
     }, [])
   );
 
+  function handleClick(id: number) {
+    navigation.navigate("UpdatePlant", {
+      itemId: id,
+    });
+  }
+
   return (
     <ScrollView>
+      <View className="flex flex-row justify-between p-4">
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Text className="text-green-800 text-lg">Voltar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleClick(itemId)}>
+          <Text className="text-green-800 text-lg">Atualizar</Text>
+        </TouchableOpacity>
+      </View>
+
       <Image
         source={require("@/assets/flores.png")}
         className="w-full h-80 fixed"
@@ -59,7 +79,7 @@ export default function PagePlant() {
           <Text className="text-center text-3xl text-green-800 font-bold">
             {autoByArduino.nome}
           </Text>
-          <TouchableOpacity className=" bg-white mt-5 px-4 py-6 rounded-lg flex-1 justify-between gap-2">
+          <View className=" bg-white mt-5 px-4 py-6 rounded-lg flex-1 justify-between gap-2">
             <View className="flex-1 flex-row items-center justify-between">
               <Text className="text-green-900 text-xl font-semibold">
                 Identificador Arduino
@@ -84,7 +104,7 @@ export default function PagePlant() {
                 {autoByArduino.umidade_ideal}
               </Text>
             </View>
-          </TouchableOpacity>
+          </View>
         </View>
       </View>
     </ScrollView>
