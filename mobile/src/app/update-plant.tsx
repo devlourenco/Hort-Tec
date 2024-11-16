@@ -1,6 +1,4 @@
-import { storageTokenGet } from "@/storange/storageUser";
 import { useCallback, useState } from "react";
-import { jwtDecode } from "jwt-decode";
 import { AxiosError, AxiosResponse } from "axios";
 import {
   Alert,
@@ -17,13 +15,13 @@ import api from "@/config/api";
 import { WelcomeScreenNavigationProp } from "@/types/navigationTypes";
 import { useRoute } from "@react-navigation/native";
 import { useFocusEffect } from "expo-router";
+import { ErrorResponse } from "./cadastro";
 
 type Props = {
   navigation: WelcomeScreenNavigationProp;
 };
 
-export default function UpdatePlant({navigation}: Props) {
-  const [error, setError] = useState<string | null>(null);
+export default function UpdatePlant({ navigation }: Props) {
   const [arduinoId, setArduinoId] = useState("");
   const [plantaNome, setPlantaNome] = useState("");
   const [umidadeIdeal, setUmidadeIdeal] = useState("");
@@ -36,39 +34,44 @@ export default function UpdatePlant({navigation}: Props) {
       .get(`/usuario-arduino/id/${itemId}`)
       .then((response) => {
         console.log(response.data.message[0]);
-        setArduinoId(response.data.message[0].id.toString())
+        setArduinoId(response.data.message[0].id.toString());
         setPlantaNome(response.data.message[0].nome);
         setUmidadeIdeal(response.data.message[0].umidade_ideal);
         setTemperaturaIdeal(response.data.message[0].temperatura_ideal);
       })
       .catch((error: AxiosError) => {
-        const message = error.response?.data.message || "Erro desconhecido";
-        Alert.alert(message);
+        const errorMessage =
+          (error.response?.data as ErrorResponse)?.message ||
+          "Erro desconhecido";
+        Alert.alert(errorMessage);
       });
   }
 
   const handleUpdate = () => {
-    api.put('/usuario-arduino', {
-      id: parseInt(arduinoId),
-      nome: plantaNome,
-      umidade_ideal: parseFloat(umidadeIdeal),
-      temperatura_ideal: parseFloat(temperaturaIdeal)
-    })
-    .then((response: AxiosResponse) => {
-      Alert.alert(response.data.message)
-      navigation.goBack()
-    })
-    .catch((error: AxiosError) => {
-      Alert.alert(error.response?.data.message)
-    })
-  }
+    api
+      .put("/usuario-arduino", {
+        id: parseInt(arduinoId),
+        nome: plantaNome,
+        umidade_ideal: parseFloat(umidadeIdeal),
+        temperatura_ideal: parseFloat(temperaturaIdeal),
+      })
+      .then((response: AxiosResponse) => {
+        Alert.alert(response.data.message);
+        navigation.goBack();
+      })
+      .catch((error: AxiosError) => {
+        const errorMessage =
+          (error.response?.data as ErrorResponse)?.message ||
+          "Erro desconhecido";
+        Alert.alert(errorMessage);
+      });
+  };
 
   useFocusEffect(
     useCallback(() => {
       handlerUserArduinoById();
     }, [])
   );
-
 
   return (
     <KeyboardAvoidingView
@@ -128,7 +131,10 @@ export default function UpdatePlant({navigation}: Props) {
             />
           </View>
 
-          <TouchableOpacity className="mt-10 p-4 bg-green-300 rounded-lg" onPress={handleUpdate}>
+          <TouchableOpacity
+            className="mt-10 p-4 bg-green-300 rounded-lg"
+            onPress={handleUpdate}
+          >
             <Text className="text-lg font-semibold text-white text-center">
               Atualizar
             </Text>

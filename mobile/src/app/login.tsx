@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { ErrorResponse } from "./cadastro";
 
 type Props = {
   navigation: WelcomeScreenNavigationProp;
@@ -45,7 +46,8 @@ export default function Login({navigation}: Props) {
       navigation.navigate('App')
     })
     .catch((error: AxiosError) => {
-      Alert.alert(error.response?.data.message);
+      const errorMessage = (error.response?.data as ErrorResponse)?.message || "Erro desconhecido";
+      Alert.alert(errorMessage);
     })
   }
   

@@ -13,6 +13,7 @@ export type RootStackParamList = {
   WeatherPage: undefined;
   PagePlant: { id: number };
   UpdatePlant: { id: number };
+  NotificationScreen: undefined
 };
 
 // Define o tipo de navegação para a tela Welcome

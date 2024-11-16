@@ -12,14 +12,15 @@ import {
 import { AxiosError } from "axios";
 import { useFocusEffect } from "expo-router";
 import { WelcomeScreenNavigationProp } from "@/types/navigationTypes";
+import { ErrorResponse } from "./cadastro";
 
 type AutoPropsById = {
-  id: number;
-  usuario_id: number;
-  arduino_id: number;
-  nome: string;
-  umidade_ideal: string;
-  temperatura_ideal: string;
+  id: number
+  usuario_id: number
+  arduino_id: number
+  nome: string
+  umidade_ideal: string
+  temperatura_ideal: string
 };
 
 type Props = {
@@ -42,8 +43,8 @@ export default function PagePlant({ navigation }: Props) {
         console.log(response.data.message[0]);
       })
       .catch((error: AxiosError) => {
-        const message = error.response?.data.message || "Erro desconhecido";
-        Alert.alert(message);
+        const errorMessage = (error.response?.data as ErrorResponse)?.message || "Erro desconhecido";
+        Alert.alert(errorMessage);
       });
   }
 

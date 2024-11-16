@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import { useEffect } from "react";
 import api from "@/config/api";
+import { ErrorResponse } from "./cadastro";
 
 export default function NewPlant() {
   const [error, setError] = useState<string | null>(null);
@@ -52,7 +53,8 @@ export default function NewPlant() {
       Alert.alert(response.data.message);
     })
     .catch((error: AxiosError) => {
-      Alert.alert(error.response?.data.message);
+      const errorMessage = (error.response?.data as ErrorResponse)?.message || "Erro desconhecido";
+      Alert.alert(errorMessage);
     });
   };
 

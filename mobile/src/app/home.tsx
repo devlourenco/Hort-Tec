@@ -80,7 +80,8 @@ export default function Home({navigation}: Props){
         <Image source={require("@/assets/avatar.png")} className="w-20 h-20 rounded-full" />
       </View>
 
-      <TouchableOpacity 
+      <TouchableOpacity
+        onPress={() => navigation.navigate("NotificationScreen")} 
         className="h-24 bg-white mt-5 px-4 py-6 rounded-lg flex-1 flex-row justify-between items-center"
       >
         <View>

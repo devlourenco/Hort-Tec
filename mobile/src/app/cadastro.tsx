@@ -1,7 +1,7 @@
 import api from "@/config/api";
 import { WelcomeScreenNavigationProp } from "@/types/navigationTypes";
 import { AxiosError, AxiosResponse } from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Alert,
   KeyboardAvoidingView,
@@ -16,6 +16,10 @@ import {
 type Props = {
   navigation: WelcomeScreenNavigationProp;
 };
+
+export interface ErrorResponse {
+  message: string;
+}
 
 export default function Cadastro({ navigation }: Props) {
   const [nome, setNome] = useState("");
@@ -39,7 +43,8 @@ export default function Cadastro({ navigation }: Props) {
       navigation.navigate('Login')
     })
     .catch((error: AxiosError) => {
-      Alert.alert(error.response?.data.message);
+      const errorMessage = (error.response?.data as ErrorResponse)?.message || "Erro desconhecido";
+      Alert.alert(errorMessage);
     });
     
   }

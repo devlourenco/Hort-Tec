@@ -7,6 +7,7 @@ import { useFocusEffect } from "expo-router";
 import { jwtDecode } from "jwt-decode";
 import { useCallback, useEffect, useState } from "react";
 import { Alert, ScrollView, Text, View } from "react-native";
+import { ErrorResponse } from "./cadastro";
 
 type Props = {
   navigation: WelcomeScreenNavigationProp;
@@ -41,8 +42,8 @@ export default function ListPlants({ navigation }: Props) {
         setListAuto(response.data.message);
       })
       .catch((error: AxiosError) => {
-        const message = error.response?.data.message || "Erro desconhecido";
-        Alert.alert(message);
+        const errorMessage = (error.response?.data as ErrorResponse)?.message || "Erro desconhecido";
+        Alert.alert(errorMessage);
       });
   }
 
