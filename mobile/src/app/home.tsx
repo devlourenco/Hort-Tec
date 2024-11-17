@@ -74,8 +74,8 @@ export default function Home({navigation}: Props){
 
       <View className="flex-1 flex-row justify-between items-center">
         <View>
-          <Text className="text-2xl text-green-800">Olá {tokenData?.nome}</Text>
-          <Text className="text-sm text-green-900">{dataFormatada}</Text>
+          <Text className="text-3xl text-green-800">Olá {tokenData?.nome}</Text>
+          <Text className="text-xl text-green-900">{dataFormatada}</Text>
         </View>
         <Image source={require("@/assets/avatar.png")} className="w-20 h-20 rounded-full" />
       </View>
@@ -85,23 +85,23 @@ export default function Home({navigation}: Props){
         className="h-24 bg-white mt-5 px-4 py-6 rounded-lg flex-1 flex-row justify-between items-center"
       >
         <View>
-          <Text className="text-green-900 text-2xl font-bold">Notificações</Text>
-          <Text className="text-green-800 text-xs">Ultimas Atualizações</Text>
+          <Text className="text-green-900 text-3xl font-bold">Notificações</Text>
+          <Text className="text-green-800 text-xl">Ultimas Atualizações</Text>
         </View>
         <Fontisto name="email" size={24} color={colors.green[900]}/>
       </TouchableOpacity>
 
       <TouchableOpacity className="h-24 bg-white mt-5 px-4 py-6 rounded-lg flex-1 flex-row justify-between items-center" onPress={handleWeather}>
         <View>
-          <Text className="text-green-900 text-2xl font-bold">Clima</Text>
-          <Text className="text-green-800 text-xs">{weather.locationName}</Text>
+          <Text className="text-green-900 text-3xl font-bold">Clima</Text>
+          <Text className="text-green-800 text-xl">{weather.locationName}</Text>
         </View>
         <Text className="text-green-900 text-2xl font-bold">{
           kelvinParaCelsius(weather.currentTemperature)
         }ºC</Text>
       </TouchableOpacity>
       <TouchableOpacity className="p-4" onPress={handleLogout}>
-        <Text>Sair</Text>
+        <Text className="text-green-900 font-bold text-3xl">Sair</Text>
       </TouchableOpacity>
 
     </ScrollView>

@@ -63,7 +63,7 @@ export default function ListPlants({ navigation }: Props) {
   return (
     <ScrollView>
       <View>
-        <Text className="text-3xl font-semibold text-green-900 mt-16 text-center">
+        <Text className="text-4xl font-semibold text-green-900 mt-16 text-center">
           Minhas Plantas
         </Text>
       </View>

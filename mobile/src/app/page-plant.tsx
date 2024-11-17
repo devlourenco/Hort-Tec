@@ -67,10 +67,10 @@ export default function PagePlant({ navigation }: Props) {
     <ScrollView>
       <View className="flex flex-row justify-between p-4">
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text className="text-green-800 text-lg">Voltar</Text>
+          <Text className="text-green-800 text-2xl">Voltar</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleClick(itemId)}>
-          <Text className="text-green-800 text-lg">Atualizar</Text>
+          <Text className="text-green-800 text-2xl">Atualizar</Text>
         </TouchableOpacity>
       </View>
 
@@ -80,49 +80,49 @@ export default function PagePlant({ navigation }: Props) {
       />
       <View className="">
         <View className="mt-6">
-          <Text className="text-center text-3xl text-green-800 font-bold">
+          <Text className="text-center text-5xl text-green-800 font-bold">
             {autoByArduino.nome}
           </Text>
           <View className=" bg-white mt-5 px-4 py-6 rounded-lg flex-1 justify-between gap-2">
             <View className="flex-1 flex-row items-center justify-between">
-              <Text className="text-green-900 text-xl font-semibold">
+              <Text className="text-green-900 text-2xl font-semibold">
                 Identificador Arduino
               </Text>
-              <Text className="text-green-800 text-xl">
+              <Text className="text-green-800 text-3xl">
                 {autoByArduino.arduino_id}
               </Text>
             </View>
             <View className="flex-1 flex-row items-center justify-between">
-              <Text className="text-green-900 text-xl font-semibold">
+              <Text className="text-green-900 text-2xl font-semibold">
                 Temperatura Ideal
               </Text>
-              <Text className="text-green-800 text-xl">
+              <Text className="text-green-800 text-3xl">
                 {autoByArduino.temperatura_ideal}
               </Text>
             </View>
             <View className="flex-1 flex-row items-center justify-between">
-              <Text className="text-green-900 text-xl font-semibold">
+              <Text className="text-green-900 text-2xl font-semibold">
                 Umidade Ideal
               </Text>
-              <Text className="text-green-800 text-xl">
+              <Text className="text-green-800 text-3xl">
                 {autoByArduino.umidade_ideal}
               </Text>
             </View>
           </View>
           <View className=" bg-white mt-5 px-4 py-6 rounded-lg flex-1 justify-between gap-2">
             <View className="flex-1 flex-row items-center justify-between">
-              <Text className="text-green-900 text-xl font-semibold">
+              <Text className="text-green-900 text-2xl font-semibold">
                 Umidade Atual
               </Text>
-              <Text className="text-green-800 text-xl">
+              <Text className="text-green-800 text-3xl">
                 {autoByArduino.umidade_atual}
               </Text>
             </View>
             <View className="flex-1 flex-row items-center justify-between">
-              <Text className="text-green-900 text-xl font-semibold">
+              <Text className="text-green-900 text-2xl font-semibold">
                 Status
               </Text>
-              <Text className="text-green-800 text-xl">
+              <Text className="text-green-800 text-2xl">
                 {autoByArduino.status}
               </Text>
             </View>
@@ -132,14 +132,13 @@ export default function PagePlant({ navigation }: Props) {
             onPress={() => navigation.navigate("NotificationScreen")}
           >
             <View>
-              <Text className="text-green-900 text-2xl font-bold">
+              <Text className="text-green-900 text-4xl font-bold">
                 Notificações
               </Text>
-              <Text className="text-green-800 text-xs">
+              <Text className="text-green-800 text-2xl">
                 Ultimas Atualizações
               </Text>
             </View>
-            <Fontisto name="email" size={24} color={colors.green[900]} />
           </TouchableOpacity>
         </View>
       </View>

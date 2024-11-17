@@ -64,12 +64,12 @@ export default function Login({navigation}: Props) {
       >
         <View className="flex-1 items-center gap-2 mb-20">
           <Text className="text-4xl font-semibold text-green-900">Hort-Tec</Text>
-          <Text className="text-lg text-green-900">Faça login e comece a usar</Text>
+          <Text className="text-2xl text-green-900">Faça login e comece a usar</Text>
         </View>
 
         <View className="flex-1 gap-6 w-screen px-7">
           <View className="flex-1 gap-1">
-            <Text className="text-lg text-green-900">E-mail:</Text>
+            <Text className="text-2xl text-green-900">E-mail:</Text>
             <TextInput 
               className="border-b py-2 px-1 border-green-900 text-green-800"
               onChangeText={setMail}
@@ -77,7 +77,7 @@ export default function Login({navigation}: Props) {
             />
           </View>
           <View className="flex-1 gap-1">
-            <Text className="text-lg text-green-900">Senha:</Text>
+            <Text className="text-2xl text-green-900">Senha:</Text>
             <TextInput 
               className="border-b py-2 px-1 border-green-900 text-green-800"
               onChangeText={setPassword}
@@ -90,7 +90,7 @@ export default function Login({navigation}: Props) {
             onPress={handleLogin}
           >
             <Text 
-              className="text-lg font-semibold text-white text-center"
+              className="text-2xl font-semibold text-white text-center"
             >
               Entrar na Plataforma
             </Text>
@@ -98,9 +98,9 @@ export default function Login({navigation}: Props) {
         </View>
 
         <View className="flex-1 gap-1 items-center mt-10">
-          <Text className="text-green-800 underline text-base">Esqueceu a senha?</Text>
+          <Text className="text-green-800 underline text-2xl">Esqueceu a senha?</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
-            <Text className="text-green-800 underline text-base">Não possui conta? Crie uma agora</Text>
+            <Text className="text-green-800 underline text-2xl mt-2">Não possui conta? Crie uma agora</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

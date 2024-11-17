@@ -36,8 +36,8 @@ export default function UpdatePlant({ navigation }: Props) {
         console.log(response.data.message[0]);
         setArduinoId(response.data.message[0].id.toString());
         setPlantaNome(response.data.message[0].nome);
-        setUmidadeIdeal(response.data.message[0].umidade_ideal);
-        setTemperaturaIdeal(response.data.message[0].temperatura_ideal);
+        setUmidadeIdeal(response.data.message[0].umidade_ideal.toString());
+        setTemperaturaIdeal(response.data.message[0].temperatura_ideal.toString());
       })
       .catch((error: AxiosError) => {
         const errorMessage =
@@ -85,18 +85,18 @@ export default function UpdatePlant({ navigation }: Props) {
       <ScrollView keyboardShouldPersistTaps="handled">
         <View className="flex flex-row justify-between p-4">
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Text className="text-green-800 text-lg">Voltar</Text>
+            <Text className="text-green-800 text-2xl">Voltar</Text>
           </TouchableOpacity>
         </View>
         <View className="flex-1 items-center gap-1 mb-10">
-          <Text className="text-3xl font-semibold text-green-900">
+          <Text className="text-4xl font-semibold text-green-900">
             Atualizações
           </Text>
         </View>
 
         <View className="flex-1 gap-6 w-screen px-7">
           <View className="flex-1 gap-1">
-            <Text className="text-base text-green-900">
+            <Text className="text-2xl text-green-900">
               Identificador Arduino:
             </Text>
             <TextInput
@@ -107,7 +107,7 @@ export default function UpdatePlant({ navigation }: Props) {
             />
           </View>
           <View className="flex-1 gap-1">
-            <Text className="text-base text-green-900">Nome da Planta:</Text>
+            <Text className="text-2xl text-green-900">Nome da Planta:</Text>
             <TextInput
               className="border-b py-2 text-green-800"
               value={plantaNome}
@@ -115,7 +115,7 @@ export default function UpdatePlant({ navigation }: Props) {
             />
           </View>
           <View className="flex-1 gap-1">
-            <Text className="text-base text-green-900">Umidade ideal:</Text>
+            <Text className="text-2xl text-green-900">Umidade ideal:</Text>
             <TextInput
               className="border-b py-2 text-green-800"
               value={umidadeIdeal}
@@ -123,7 +123,7 @@ export default function UpdatePlant({ navigation }: Props) {
             />
           </View>
           <View className="flex-1 gap-1">
-            <Text className="text-base text-green-900">Temperatura ideal:</Text>
+            <Text className="text-2xl text-green-900">Temperatura ideal:</Text>
             <TextInput
               className="border-b py-2 text-green-800"
               value={temperaturaIdeal}
@@ -135,7 +135,7 @@ export default function UpdatePlant({ navigation }: Props) {
             className="mt-10 p-4 bg-green-300 rounded-lg"
             onPress={handleUpdate}
           >
-            <Text className="text-lg font-semibold text-white text-center">
+            <Text className="text-2xl font-semibold text-white text-center">
               Atualizar
             </Text>
           </TouchableOpacity>

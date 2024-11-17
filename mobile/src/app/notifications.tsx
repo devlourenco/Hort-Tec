@@ -18,7 +18,7 @@ import { ErrorResponse } from "./cadastro";
 
 type NotificationItem = {
   id: number;
-  usuario_id: string;
+  usuario_id: number;
   nome: string;
   tipo: string;
   status: string;
@@ -53,7 +53,6 @@ const NotificationScreen = () => {
           console.log("não sei");
         }
         setNotificationsData(response.data.message)
-        console.log(response.data.message);
       })
       .catch((error: AxiosError) => {
         const errorMessage =
@@ -73,26 +72,26 @@ const NotificationScreen = () => {
     <TouchableOpacity className="bg-white p-4 mb-2 rounded-lg flex-1 flex-row gap-2 items-center">
       <Image
         source={require("@/assets/cactus.png")}
-        className="w-24 h-24 rounded-full"
+        className="w-28 h-28 rounded-full"
       />
       <View>
-        <Text className="text-lg font-semibold text-green-950">
+        <Text className="text-2xl font-semibold text-green-950">
           {item.tipo} - {item.nome}
         </Text>
-        <Text className="text-sm text-green-900">
+        <Text className="text-lg text-green-900">
           {format(item.data_hora, "dd 'de' MMMM 'de' yyyy 'às' HH:mm")}
         </Text>
-        <Text className="text-sm text-green-900">
+        <Text className="text-lg text-green-900">
           Umidade do Solo: {item.umidade}
         </Text>
-        <Text className="text-sm text-green-900">Status: {item.status}</Text>
+        <Text className="text-lg text-green-900">Status: {item.status}</Text>
       </View>
     </TouchableOpacity>
   );
 
   return (
     <View className="flex-1 bg-gray-100 p-4">
-      <Text className="text-2xl font-bold text-green-950 mb-4">
+      <Text className="text-4xl  font-bold text-green-950 my-4">
         Notificações
       </Text>
       <FlatList

@@ -60,20 +60,19 @@ export default function Cadastro({ navigation }: Props) {
     >
       <ScrollView keyboardShouldPersistTaps="handled">
         <View className="flex-1 items-center gap-1 mb-20">
-          <Text className="text-3xl font-semibold text-green-900">
+          <Text className="text-4xl font-semibold text-green-900">
             Já nos conhecemos?
           </Text>
-          <Text className="text-base text-green-900">
-            Se sim,&ensp;
+
             <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-              <Text className="underline text-green-900">clique aqui!</Text>
+              <Text className="underline text-green-900 text-2xl">Se sim, clique aqui!</Text>
             </TouchableOpacity>
-          </Text>
+
         </View>
 
         <View className="flex-1 gap-6 w-screen px-7">
           <View className="flex-1 gap-1">
-            <Text className="text-base text-green-900">Nome Completo:</Text>
+            <Text className="text-2xl text-green-900">Nome Completo:</Text>
             <TextInput
               className="border-b py-2 text-green-800"
               onChangeText={setNome}
@@ -81,7 +80,7 @@ export default function Cadastro({ navigation }: Props) {
             />
           </View>
           <View className="flex-1 gap-1">
-            <Text className="text-base text-green-900">E-mail:</Text>
+            <Text className="text-2xl text-green-900">E-mail:</Text>
             <TextInput
               className="border-b py-2 text-green-800"
               onChangeText={setEmail}
@@ -89,7 +88,7 @@ export default function Cadastro({ navigation }: Props) {
             />
           </View>
           <View className="flex-1 gap-1">
-            <Text className="text-base text-green-900">Senha:</Text>
+            <Text className="text-2xl text-green-900">Senha:</Text>
             <TextInput
               className="border-b py-2 text-green-800"
               onChangeText={setSenha}
@@ -97,7 +96,7 @@ export default function Cadastro({ navigation }: Props) {
             />
           </View>
           <View className="flex-1 gap-1">
-            <Text className="text-base text-green-900">Confirmar senha:</Text>
+            <Text className="text-2xl text-green-900">Confirmar senha:</Text>
             <TextInput
               className="border-b py-2 text-green-800"
               onChangeText={setCofirmaSenha}
@@ -111,7 +110,7 @@ export default function Cadastro({ navigation }: Props) {
               handleRegister();
             }}
           >
-            <Text className="text-lg font-semibold text-white text-center">
+            <Text className="text-xl font-semibold text-white text-center">
               Cadastrar
             </Text>
           </TouchableOpacity>

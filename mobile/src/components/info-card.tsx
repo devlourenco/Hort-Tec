@@ -12,7 +12,7 @@ export default function InfoCard(props: Prosp){
   const Icon = () => {
     if (props.icon === "wind") {
       return (
-        <Feather name="wind" size={40} color={colors.green[900]} />
+        <Feather name="wind" size={60} color={colors.green[900]} />
       );
     }
     if (props.icon === "humidity") {
@@ -46,10 +46,10 @@ export default function InfoCard(props: Prosp){
   return(
     <View className="flex-1 items-center m-3">
       <Icon/>
-      <Text className="text-green-900 text-base text-center">
+      <Text className="text-green-900 text-xl text-center">
         {props.title}
       </Text>
-      <Text className="text-green-900 text-center">
+      <Text className="text-green-900 text-center text-3xl">
         {props.variable}
       </Text>
     </View>

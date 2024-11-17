@@ -49,25 +49,25 @@ export default function WeatherPage({ navigation }: Props) {
         <Feather
           className="mt-10"
           name="sun"
-          size={60}
+          size={100}
           color={colors.green[900]}
         />
       </View>
 
       <View className="flex-1 flex-row justify-center mt-10">
-        <Text className="text-green-900 text-5xl">
+        <Text className="text-green-900 text-6xl">
           {kelvinParaCelsius(weather.currentTemperature)}
         </Text>
-        <Text className="text-green-900 text-sm">°C</Text>
+        <Text className="text-green-900 text-3xl">°C</Text>
       </View>
 
-      <Text className="text-center mt-4 text-green-900">
+      <Text className="text-center mt-4 text-green-900 text-3xl">
         {weather.locationName}
       </Text>
 
       <View className="flex-1 items-center rounded-2xl w-screen mt-4 bg-gray-50">
 
-        <Text className="p-4 text-xl font-bold text-green-900">
+        <Text className="p-4 text-3xl font-bold text-green-900">
           Informações adicionais:
         </Text>
         <View className="flex flex-row">
@@ -79,7 +79,7 @@ export default function WeatherPage({ navigation }: Props) {
           <InfoCard 
             title={"Umidade"} 
             variable={`${weather.humidity.toString()}%`}
-            icon="humidity"  
+            icon="humidity"
           />
           <InfoCard 
             title={"Temp. Min"} 

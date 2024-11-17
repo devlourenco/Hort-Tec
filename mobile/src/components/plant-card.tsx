@@ -17,13 +17,13 @@ export default function PlantCard(props: AutoProps) {
       className=" bg-white p-4 rounded-lg flex-1 flex-row items-center gap-4 mx-2"
       onPress={props.onPress}
     >
-      <Image source={require("@/assets/cactus.png")} className="w-24 h-24 rounded-full" />
+      <Image source={require("@/assets/cactus.png")} className="w-28 h-28 rounded-full" />
       <View>
-        <Text className="text-green-900 text-2xl font-bold">
+        <Text className="text-green-900 text-4xl font-bold">
           {props.nome}
         </Text>
-        <Text className="text-green-800 text-xs">Umidade do solo: {props.umidade_atual}</Text>
-        <Text className="text-green-800 text-xs">Status: {props.status}</Text>
+        <Text className="text-green-800 text-xl">Umidade do solo: {props.umidade_atual}</Text>
+        <Text className="text-green-800 text-xl">Status: {props.status}</Text>
       </View>
     </TouchableOpacity>
   );

@@ -4,6 +4,7 @@ import NewPlant from "@/app/new-plant";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import { colors } from "@/styles/colors";
 
 const Tab = createBottomTabNavigator();
 
