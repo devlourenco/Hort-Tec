@@ -18,7 +18,7 @@ async function createLeitura( usuario_arduino_id, umidade, tipo, status){
 }
 
 async function findLeituraByUsuario(usuario_id){
-  const sql = `select ua.nome, l.tipo, ua.status, l.data_hora, l.umidade from leituras l inner join usuario_arduino ua on ua.id = l.usuario_arduino_id where ua.usuario_id = ${usuario_id}`
+  const sql = `select l.id, ua.nome, l.tipo, ua.status, l.data_hora, l.umidade from leituras l inner join usuario_arduino ua on ua.id = l.usuario_arduino_id where ua.usuario_id = ${usuario_id}`
 
   const conn = await database.connect()
   const [rows] = await conn.query(sql)
@@ -27,7 +27,7 @@ async function findLeituraByUsuario(usuario_id){
 }
 
 async function findLeituraByAutomacao(usuario_id, usuario_arduino_id){
-  const sql = `select ua.nome, l.tipo, ua.status, l.data_hora, l.umidade from leituras l inner join usuario_arduino ua on ua.id = l.usuario_arduino_id where ua.usuario_id = ${usuario_id} and ua.id = ${usuario_arduino_id}`
+  const sql = `select l.id, ua.nome, l.tipo, ua.status, l.data_hora, l.umidade from leituras l inner join usuario_arduino ua on ua.id = l.usuario_arduino_id where ua.usuario_id = ${usuario_id} and ua.id = ${usuario_arduino_id}`
 
   const conn = await database.connect()
   const [rows] = await conn.query(sql)

@@ -17,7 +17,7 @@ async function createUserArduino(id_usuario, id_arduino, planta_nome, umidade_id
 }
 
 async function listUserArduino(id){
-  const sql = `select ua.id, ua.nome, ua.umidade_ideal, ua.temperatura_ideal from usuario_arduino as ua inner join usuarios as u on ua.usuario_id = u.id where u.id = ${id}`
+  const sql = `select ua.id, ua.nome, ua.umidade_ideal, ua.temperatura_ideal, ua.status, ua.umidade_atual from usuario_arduino as ua inner join usuarios as u on ua.usuario_id = u.id where u.id = ${id}`
 
   const conn = await database.connect();
   const [rows] = await conn.query(sql);
@@ -37,7 +37,7 @@ async function findAutomacaoById(id){
 }
 
 async function verifyUserArduino(id){
-  const sql = `select ua.id, ua.nome, ua.umidade_ideal, ua.temperatura_ideal from usuario_arduino as ua inner join usuarios as u on ua.usuario_id = u.id where ua.arduino_id = ${id}`
+  const sql = `select ua.id, ua.nome, ua.umidade_ideal, ua.temperatura_ideal, ua.status, ua.umidade_atual from usuario_arduino as ua inner join usuarios as u on ua.usuario_id = u.id where ua.arduino_id = ${id}`
 
   const conn = await database.connect();
   const [rows] = await conn.query(sql);

@@ -22,7 +22,7 @@ routes.get('/:usuario_id', async(req, res) => {
 
     res.status(200).send({ message: leituraArduinoSave})
   }catch(err){
-    console.error("Erro ao buscar leituras: ", error);
+    console.error("Erro ao buscar leituras: ", err);
     return res.status(400).send({ message: "Erro ao buscar leituras" });
   }
 })
