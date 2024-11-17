@@ -55,6 +55,16 @@ async function verificarEmail(email) {
   return users
 }
 
-export default { createUser, listUser, updateUser, deleteUser, verificarEmail };
+async function verificarUsuario(id) {
+  const sql = `select * from usuarios where deletado = 0 and id = '${id}'`
+
+  const con = await database.connect()
+  const [users] = await con.query(sql)
+  con.end();
+
+  return users
+}
+
+export default { createUser, listUser, updateUser, deleteUser, verificarEmail, verificarUsuario };
 
 

@@ -87,7 +87,7 @@ routes.post("/", async (req, res) => {
     !umidade_ideal ||
     !temperatura_ideal
   ) {
-    return res.status(200).send({ message: "Complete o cadastro" });
+    return res.status(401).send({ message: "Complete o cadastro" });
   }
 
   try {
