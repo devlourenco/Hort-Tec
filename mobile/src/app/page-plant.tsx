@@ -13,14 +13,18 @@ import { AxiosError } from "axios";
 import { useFocusEffect } from "expo-router";
 import { WelcomeScreenNavigationProp } from "@/types/navigationTypes";
 import { ErrorResponse } from "./cadastro";
+import { Fontisto } from "@expo/vector-icons";
+import { colors } from "@/styles/colors";
 
 type AutoPropsById = {
-  id: number
-  usuario_id: number
-  arduino_id: number
-  nome: string
-  umidade_ideal: string
-  temperatura_ideal: string
+  id: number;
+  usuario_id: number;
+  arduino_id: number;
+  nome: string;
+  umidade_ideal: number;
+  temperatura_ideal: number;
+  status: string;
+  umidade_atual: number;
 };
 
 type Props = {
@@ -33,17 +37,16 @@ export default function PagePlant({ navigation }: Props) {
   const route = useRoute();
   const { itemId } = route.params;
 
-  console.log(itemId);
-
   async function handlerArduinoById() {
     await api
       .get(`/usuario-arduino/id/${itemId}`)
       .then((response) => {
         setAutoByArduino(response.data.message[0]);
-        console.log(response.data.message[0]);
       })
       .catch((error: AxiosError) => {
-        const errorMessage = (error.response?.data as ErrorResponse)?.message || "Erro desconhecido";
+        const errorMessage =
+          (error.response?.data as ErrorResponse)?.message ||
+          "Erro desconhecido";
         Alert.alert(errorMessage);
       });
   }
@@ -106,6 +109,38 @@ export default function PagePlant({ navigation }: Props) {
               </Text>
             </View>
           </View>
+          <View className=" bg-white mt-5 px-4 py-6 rounded-lg flex-1 justify-between gap-2">
+            <View className="flex-1 flex-row items-center justify-between">
+              <Text className="text-green-900 text-xl font-semibold">
+                Umidade Atual
+              </Text>
+              <Text className="text-green-800 text-xl">
+                {autoByArduino.umidade_atual}
+              </Text>
+            </View>
+            <View className="flex-1 flex-row items-center justify-between">
+              <Text className="text-green-900 text-xl font-semibold">
+                Status
+              </Text>
+              <Text className="text-green-800 text-xl">
+                {autoByArduino.status}
+              </Text>
+            </View>
+          </View>
+          <TouchableOpacity 
+            className="h-24 bg-white mt-5 px-4 py-6 rounded-lg flex-1 flex-row items-center"
+            onPress={() => navigation.navigate("NotificationScreen")}
+          >
+            <View>
+              <Text className="text-green-900 text-2xl font-bold">
+                Notificações
+              </Text>
+              <Text className="text-green-800 text-xs">
+                Ultimas Atualizações
+              </Text>
+            </View>
+            <Fontisto name="email" size={24} color={colors.green[900]} />
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>

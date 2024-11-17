@@ -6,11 +6,10 @@ type Props = {
   navigation: WelcomeScreenNavigationProp;
 };
 
-
 export default function Welcome({navigation}: Props) {
   return (
     <View className="flex-1 items-center justify-center px-7 gap-10">
-      <Text className="font-semibold text-4xl text-center text-green-900">Gerencie suas plantas de forma fácil</Text>
+      <Text className="font-semibold text-5xl text-center text-green-900">Gerencie suas plantas de forma fácil</Text>
       <Image
         className="w-80 h-80 object-contain" 
         source={require("@/assets/home.png")}

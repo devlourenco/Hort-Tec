@@ -40,6 +40,7 @@ export default function ListPlants({ navigation }: Props) {
       .then((response) => {
         if(response === null){}
         setListAuto(response.data.message);
+        console.log(response.data.message);
       })
       .catch((error: AxiosError) => {
         const errorMessage = (error.response?.data as ErrorResponse)?.message || "Erro desconhecido";
@@ -77,6 +78,8 @@ export default function ListPlants({ navigation }: Props) {
                 nome={item.nome.charAt(0).toUpperCase() + item.nome.slice(1)}
                 umidade_ideal={item.umidade_ideal}
                 temperatura_ideal={item.temperatura_ideal}
+                status={item.status}
+                umidade_atual={item.umidade_atual}
               />
             )
           })
