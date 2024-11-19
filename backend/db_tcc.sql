@@ -29,7 +29,7 @@ create table usuario_arduino(
   nome varchar (50),
   umidade_ideal float,
   temperatura_ideal float,
-  status varchar(20) default 'umidade normal',
+  status varchar(20) default 'sem leitura inicial',
   umidade_atual float default 0
   
   foreign key (arduino_id) references arduinos(id),
@@ -42,6 +42,7 @@ create table leituras (
   data_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
   umidade float,
   tipo varchar(20),
+  status varchar(20),
 
   foreign key (usuario_arduino_id) references usuario_arduino(id)
 );    
